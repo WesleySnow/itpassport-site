@@ -1,5 +1,5 @@
-# IPPASS 学習マップ — ITパスポート対策サイト(シラバスVer.6.5対応)
-[公開サイト](https://wesleysnow.github.io/itpassport-site/)
+# itpassport 学習マップ — ITパスポート対策サイト(シラバスVer.6.5対応)
+[サイトを開く](https://wesleysnow.github.io/itpassport-site/)
 
 学習科学(先行オーガナイザー・アクティブリコール・インターリーブ・メタ認知)をUIに組み込んだ、静的な学習サイト。サーバー不要で、`index.html` をブラウザで開くだけで動きます(GitHub Pages等での公開も可)。
 
