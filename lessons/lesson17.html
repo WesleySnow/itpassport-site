@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第17回 基礎理論③ AI・機械学習・生成AI | ITパスポート学習マップ</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="page-lesson" data-lesson="17">
+<header class="site-head">
+ <a class="brand" href="../index.html">IP<span>PASS</span> 学習マップ</a>
+ <nav><a href="../quiz.html">演習</a><a href="../exam.html">模擬テスト</a><a href="../glossary.html">用語辞典</a><a href="../dashboard.html">記録</a></nav>
+</header>
+<main class="wrap">
+ <p class="eyebrow cat-T">テクノロジ系 ・ 第17回</p>
+ <h1 class="lesson-title">基礎理論③ AI・機械学習・生成AI</h1>
+ <p class="win"><strong>この回の勝利:</strong> ML/DL/生成AIの関係を図で描け、RAG・ハルシネーション等を説明できる</p>
+
+<section class="lsec"><h2>AIの包含関係 — AI ⊃ 機械学習 ⊃ ディープラーニング</h2>
+<dl>
+<dt>機械学習の3方式</dt><dd><strong>教師あり学習</strong>=正解ラベル付きデータで学習(分類・回帰)/<strong>教師なし学習</strong>=正解なしで構造を発見(クラスタリング)/<strong>強化学習</strong>=報酬を最大化する行動を試行錯誤で学習。</dd>
+<dt>ディープラーニング</dt><dd>多層ニューラルネットワークで<strong>特徴を自動的に抽出</strong>する(令和7年度 問86)。画像認識・音声認識・生成AIの基盤。学習を繰り返すと誤り率が下がる、という計算問題も出ます(問85: 誤り率70%×0.95ⁿ)。</dd>
+</dl>
+</section>
+<section class="lsec"><h2>生成AIの用語群(Ver.6.3以降の新出重点)</h2>
+<dl>
+<dt>生成AI / LLM / 基盤モデル</dt><dd>生成AI=学習済みデータを基に自然言語の指示から新コンテンツを生成。LLM=大規模言語モデル。<strong>基盤モデル</strong>=広範囲かつ大量のデータで訓練され、ファインチューニングで多用途に適応できるモデル(問80)。</dd>
+<dt>プロンプトエンジニアリング</dt><dd>意図した出力を得るための指示の設計・改善技術。</dd>
+<dt>RAG / ファインチューニング</dt><dd>RAG=外部知識を<strong>検索して</strong>生成に利用/ファインチューニング=追加学習で<strong>パラメータを調整</strong>。「検索か再学習か」で区別。</dd>
+<dt>ハルシネーション</dt><dd>もっともらしいが事実と異なる出力(問10)。生成AIの出力に人間の検証が必要な根拠。</dd>
+</dl>
+<div class="expoint">AI倫理も出題範囲: 学習データのバイアス対策(目的への適合、来歴確認、適切なアノテーション。問8)、ディープフェイク、XAI(説明可能なAI)、シンギュラリティ。「AIは学習を一切必要としない」のような選択肢は誤りです。</div>
+</section>
+
+ <div class="lesson-nav">
+  <a class="btn ghost" href="lesson16.html">← 第16回</a>
+  <a class="btn ghost" href="../quiz.html?cat=T">この分野の演習へ</a>
+  <button class="btn done-btn" id="doneBtn">この回を完了にする</button>
+  <a class="btn ghost" href="lesson18.html">第18回 →</a>
+ </div>
+</main>
+<script src="../assets/app.js"></script>
+<script>IPSS.initLessonPage(17);</script>
+</body>
+</html>

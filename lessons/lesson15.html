@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第15回 基礎理論① 2進数と論理演算 | ITパスポート学習マップ</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="page-lesson" data-lesson="15">
+<header class="site-head">
+ <a class="brand" href="../index.html">IP<span>PASS</span> 学習マップ</a>
+ <nav><a href="../quiz.html">演習</a><a href="../exam.html">模擬テスト</a><a href="../glossary.html">用語辞典</a><a href="../dashboard.html">記録</a></nav>
+</header>
+<main class="wrap">
+ <p class="eyebrow cat-T">テクノロジ系 ・ 第15回</p>
+ <h1 class="lesson-title">基礎理論① 2進数と論理演算</h1>
+ <p class="win"><strong>この回の勝利:</strong> 基数変換と論理演算(AND/OR/XOR)を計算できる</p>
+
+<section class="lsec"><h2>基数変換 — 重みで足す・割って並べる</h2>
+<p>2進数→10進数は各桁の<strong>重み(…8, 4, 2, 1)</strong>を足すだけ: 1011(2) = 8+0+2+1 = 11。10進数→2進数は「8,4,2,1のどれで作れるか」: 13 = 8+4+1 = 1101(2)。あるいは2で割った余りを下から読む方法でも同じ結果になります。</p>
+<p>情報量の単位: 1バイト=8ビット。k(10³)→M(10⁶)→G(10⁹)→T(10¹²)、小さい方はm(10⁻³)→μ(10⁻⁶)→n(10⁻⁹)→p(10⁻¹²)。「ミリ秒とナノ秒どちらが短いか」型の比較が出ます。</p>
+</section>
+<section class="lsec"><h2>論理演算 — 真理値表を書けば迷わない</h2>
+<table><tr><th>A</th><th>B</th><th>AND</th><th>OR</th><th>XOR</th></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+<tr><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+<tr><td>1</td><td>1</td><td>1</td><td>1</td><td><strong>0</strong></td></tr></table>
+<p>AND=両方1のときだけ1、OR=どちらかが1なら1、NOT=反転、<strong>XOR=2つが異なるときだけ1</strong>。「1 XOR 1 = 0」がORとの決定的な違いで、ここを突く問題が定番です。条件の組合せはベン図で考えると検索条件(AND/OR/NOT)の問題にも応用できます。</p>
+<div class="expoint">計算問題は「手を動かした回数」がそのまま得点力になります。この回の演習(2進数・論理演算)は最低2周を推奨。</div>
+</section>
+
+ <div class="lesson-nav">
+  <a class="btn ghost" href="lesson14.html">← 第14回</a>
+  <a class="btn ghost" href="../quiz.html?cat=T">この分野の演習へ</a>
+  <button class="btn done-btn" id="doneBtn">この回を完了にする</button>
+  <a class="btn ghost" href="lesson16.html">第16回 →</a>
+ </div>
+</main>
+<script src="../assets/app.js"></script>
+<script>IPSS.initLessonPage(15);</script>
+</body>
+</html>

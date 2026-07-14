@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第24回 ネットワーク① 仕組みとプロトコル | ITパスポート学習マップ</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="page-lesson" data-lesson="24">
+<header class="site-head">
+ <a class="brand" href="../index.html">IP<span>PASS</span> 学習マップ</a>
+ <nav><a href="../quiz.html">演習</a><a href="../exam.html">模擬テスト</a><a href="../glossary.html">用語辞典</a><a href="../dashboard.html">記録</a></nav>
+</header>
+<main class="wrap">
+ <p class="eyebrow cat-T">テクノロジ系 ・ 第24回</p>
+ <h1 class="lesson-title">ネットワーク① 仕組みとプロトコル</h1>
+ <p class="win"><strong>この回の勝利:</strong> TCP/IPの階層と主要プロトコルを対応づけられる</p>
+
+<section class="lsec"><h2>TCP/IPと主要プロトコル — 役割とセットで</h2>
+<table><tr><th>プロトコル</th><th>役割</th></tr>
+<tr><td>HTTP / HTTPS</td><td>Webページの取得(Sは暗号化付き)</td></tr>
+<tr><td>SMTP</td><td>メールの送信・転送</td></tr>
+<tr><td>POP3 / IMAP</td><td>メールの受信(IMAPはサーバに置いたまま)</td></tr>
+<tr><td>FTP</td><td><strong>ファイル転送</strong>(令和7年度 問60)</td></tr>
+<tr><td>NTP</td><td>時刻同期</td></tr>
+<tr><td>DNS</td><td><strong>ドメイン名⇔IPアドレスの対応付け</strong>(名前解決。問58)</td></tr>
+<tr><td>DHCP</td><td>IPアドレスなどの自動割当て</td></tr></table>
+<p>DNSとDHCPの混同を狙う選択肢が毎年のように出ます。「名前を解決する=DNS、番号を配る=DHCP」。</p>
+</section>
+<section class="lsec"><h2>ネットワーク機器とプロキシ</h2>
+<p>ハブ(集線)→スイッチ(宛先を見て転送)→ルータ(ネットワーク間を中継)。MACアドレス=機器固有の番号。<strong>プロキシサーバ</strong>=PCの代理としてWebサーバへ接続し、送受信データを中継する(問57)——「代理」の一語で覚えます。データはパケットに分割されて運ばれ、TCPが到達を保証します。</p>
+<div class="expoint">プロトコル問題は消去法が有効:「時刻ならNTP、メール送信ならSMTP、割当てならDHCP」と役割から逆引きできれば、知らない選択肢が混ざっても解けます。</div>
+</section>
+
+ <div class="lesson-nav">
+  <a class="btn ghost" href="lesson23.html">← 第23回</a>
+  <a class="btn ghost" href="../quiz.html?cat=T">この分野の演習へ</a>
+  <button class="btn done-btn" id="doneBtn">この回を完了にする</button>
+  <a class="btn ghost" href="lesson25.html">第25回 →</a>
+ </div>
+</main>
+<script src="../assets/app.js"></script>
+<script>IPSS.initLessonPage(24);</script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>用語辞典 | ITパスポート学習マップ</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site-head">
+ <a class="brand" href="index.html">IP<span>PASS</span> 学習マップ</a>
+ <nav><a href="quiz.html">演習</a><a href="exam.html">模擬テスト</a><a class="on" href="glossary.html">用語辞典</a><a href="dashboard.html">記録</a></nav>
+</header>
+
+<main class="wrap">
+ <p class="eyebrow">GLOSSARY ・ シラバスVER.6.5準拠</p>
+ <h1 class="lesson-title">用語辞典</h1>
+
+ <div class="glossary-head">
+  <input class="search-box" id="q" type="search" style="margin-top:0" placeholder="用語・略語・説明文を検索(例: RAG、稼働率、取適法)">
+  <div class="opt-row" style="margin:10px 0 0" id="filters">
+   <button class="chip on" data-f="all">すべて<span class="n" id="nAll"></span></button>
+   <button class="chip c-S" data-f="S">ストラテジ<span class="n" id="nS"></span></button>
+   <button class="chip c-M" data-f="M">マネジメント<span class="n" id="nM"></span></button>
+   <button class="chip c-T" data-f="T">テクノロジ<span class="n" id="nT"></span></button>
+   <button class="chip" data-f="star">新出重点<span class="n" id="nStar"></span></button>
+   <button class="chip" id="shuffleBtn">ランダム10語で復習</button>
+  </div>
+ </div>
+
+ <p class="dim" id="count" style="margin-top:12px"></p>
+ <div class="term-list" id="list"></div>
+</main>
+
+<script src="data/terms_a.js"></script>
+<script src="data/terms_b.js"></script>
+<script src="data/terms_c.js"></script>
+<script src="data/terms_d.js"></script>
+<script src="data/terms_e.js"></script>
+<script src="data/terms_f.js"></script>
+<script src="data/terms_g.js"></script>
+<script src="data/terms_h.js"></script>
+<script src="data/terms_i.js"></script>
+<script src="data/terms_j.js"></script>
+<script src="data/terms_k.js"></script>
+<script src="assets/app.js"></script>
+<script>
+(function(){
+  const TERMS = ["TERMS_A","TERMS_B","TERMS_C","TERMS_D","TERMS_E","TERMS_F","TERMS_G","TERMS_H","TERMS_I","TERMS_J","TERMS_K"]
+    .reduce((acc, k) => acc.concat(window[k] || []), []);
+  const list = document.getElementById("list");
+  const count = document.getElementById("count");
+  const input = document.getElementById("q");
+  let filter = "all", kw = "", shuffled = null;
+
+  document.getElementById("nAll").textContent = TERMS.length;
+  document.getElementById("nS").textContent = TERMS.filter(t=>t.cat==="S").length;
+  document.getElementById("nM").textContent = TERMS.filter(t=>t.cat==="M").length;
+  document.getElementById("nT").textContent = TERMS.filter(t=>t.cat==="T").length;
+  document.getElementById("nStar").textContent = TERMS.filter(t=>t.star).length;
+
+  function card(t){
+    return '<div class="term-card' + (t.star ? ' is-star' : '') + '">' +
+      '<div class="term-head"><span class="term-name">' + IPSS.esc(t.term) + '</span>' +
+      (t.en ? '<span class="term-en">' + IPSS.esc(t.en) + '</span>' : '') +
+      '<span class="q-tag ' + t.cat + '">' + IPSS.CAT[t.cat].name.replace("系","") + '</span>' +
+      (t.star ? '<span class="badge star">新出</span>' : '') +
+      '</div>' +
+      '<p class="term-def">' + IPSS.esc(t.def) + '</p>' +
+      '<p class="term-link"><a href="lessons/lesson' + String(t.lesson).padStart(2,"0") + '.html">→ 第' + String(t.lesson).padStart(2,"0") + '回で学ぶ</a></p>' +
+      '</div>';
+  }
+
+  function render(){
+    if(shuffled){
+      count.textContent = "ランダム10語 — 用語だけ見て意味を言えるか試してから、説明で答え合わせを";
+      list.innerHTML = shuffled.map(card).join('');
+      return;
+    }
+    const k = kw.trim().toLowerCase();
+    const items = TERMS.filter(t=>{
+      if(filter === "star" && !t.star) return false;
+      if((filter === "S" || filter === "M" || filter === "T") && t.cat !== filter) return false;
+      if(k && !(t.term.toLowerCase().includes(k) || (t.en||"").toLowerCase().includes(k) || t.def.toLowerCase().includes(k))) return false;
+      return true;
+    });
+    count.textContent = items.length + "語";
+    list.innerHTML = items.map(card).join('') ||
+      '<p class="empty">該当する用語がありません。検索語を短くしてみてください。</p>';
+  }
+
+  document.getElementById("filters").addEventListener("click", e=>{
+    const b = e.target.closest(".chip"); if(!b) return;
+    if(b.id === "shuffleBtn"){
+      shuffled = IPSS.shuffle(TERMS).slice(0,10);
+      [...e.currentTarget.querySelectorAll(".chip")].forEach(c=>c.classList.toggle("on", c===b));
+      render(); return;
+    }
+    shuffled = null;
+    filter = b.dataset.f;
+    [...e.currentTarget.querySelectorAll(".chip")].forEach(c=>c.classList.toggle("on", c===b));
+    render();
+  });
+  input.addEventListener("input", ()=>{ shuffled = null; kw = input.value; render(); });
+  render();
+})();
+</script>
+</body>
+</html>

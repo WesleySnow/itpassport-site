@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第13回 サービスマネジメント | ITパスポート学習マップ</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="page-lesson" data-lesson="13">
+<header class="site-head">
+ <a class="brand" href="../index.html">IP<span>PASS</span> 学習マップ</a>
+ <nav><a href="../quiz.html">演習</a><a href="../exam.html">模擬テスト</a><a href="../glossary.html">用語辞典</a><a href="../dashboard.html">記録</a></nav>
+</header>
+<main class="wrap">
+ <p class="eyebrow cat-M">マネジメント系 ・ 第13回</p>
+ <h1 class="lesson-title">サービスマネジメント</h1>
+ <p class="win"><strong>この回の勝利:</strong> SLA/SLM・インシデント管理・ファシリティマネジメントを区別できる</p>
+
+<section class="lsec"><h2>SLAとサービスレベル管理</h2>
+<p><strong>SLA</strong>=提供者と顧客がサービス品質水準(稼働率・復旧時間など)を合意した文書。<strong>SLM</strong>=SLAの遵守状況を確認し品質を維持・改善する活動(令和7年度 問37)。<strong>可用性</strong>=合意した提供時間帯のうち実際に利用できた時間の割合(問36)。ITILはITサービスマネジメントのベストプラクティス集です。</p>
+</section>
+<section class="lsec"><h2>運用のプロセス — 復旧と原因究明を分ける</h2>
+<dl>
+<dt>インシデント管理</dt><dd>目的は<strong>サービスの速やかな復旧</strong>。応急処置でよい。</dd>
+<dt>問題管理</dt><dd>根本原因を特定し恒久対策を行う。インシデント管理との対比が最頻出。</dd>
+<dt>変更管理 / リリース管理</dt><dd>変更の承認・記録/本番環境への展開の管理。</dd>
+<dt>サービスデスク</dt><dd>利用者との単一窓口(SPOC)。チャットボット導入の効果=受付時間の拡大(問49・50)。AI支援による対応時間短縮の計算問題も出ます(問54: 60%×半減+40%=70%→30%短縮)。</dd>
+</dl>
+</section>
+<section class="lsec"><h2>ファシリティマネジメント</h2>
+<p>建物・設備を最適に保つ管理。UPS(無停電電源装置——停電時に短時間電力を供給しシステムを安全停止させる)、自家発電装置、サージ防護、免震、<strong>フリーアクセスフロア</strong>(配線用の二重床。問42)、施錠管理などが対象です。</p>
+<div class="expoint">「速やかな復旧=インシデント管理、根本原因=問題管理」。この一行が毎年のように得点になります。</div>
+</section>
+
+ <div class="lesson-nav">
+  <a class="btn ghost" href="lesson12.html">← 第12回</a>
+  <a class="btn ghost" href="../quiz.html?cat=M">この分野の演習へ</a>
+  <button class="btn done-btn" id="doneBtn">この回を完了にする</button>
+  <a class="btn ghost" href="lesson14.html">第14回 →</a>
+ </div>
+</main>
+<script src="../assets/app.js"></script>
+<script>IPSS.initLessonPage(13);</script>
+</body>
+</html>

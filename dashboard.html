@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>学習の記録 | ITパスポート学習マップ</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site-head">
+ <a class="brand" href="index.html">IP<span>PASS</span> 学習マップ</a>
+ <nav><a href="quiz.html">演習</a><a href="exam.html">模擬テスト</a><a href="glossary.html">用語辞典</a><a class="on" href="dashboard.html">記録</a></nav>
+</header>
+
+<main class="wrap">
+ <p class="eyebrow">DASHBOARD</p>
+ <h1 class="lesson-title">学習の記録</h1>
+ <p class="dim">合格条件は「総合600点かつ各分野300点」。どれか1分野が沈むと総合が届いていても不合格——だからこの画面は分野別に見ます。</p>
+
+ <div class="panel">
+  <h2>講義の進捗</h2>
+  <div id="lessonProg"></div>
+ </div>
+
+ <div class="panel">
+  <h2>演習の分野別正答率</h2>
+  <div class="score-rows" id="quizStats"></div>
+  <p class="dim" style="margin-top:12px">70%を下回る分野は<a href="quiz.html">分野別演習</a>で重点的に。縦線=70%の目安。</p>
+ </div>
+
+ <div class="panel">
+  <h2>模擬テストの履歴</h2>
+  <div id="examHist"></div>
+ </div>
+</main>
+
+<script src="data/curriculum.js"></script>
+<script src="assets/app.js"></script>
+<script>
+(function(){
+  // 講義進捗
+  const prog = IPSS.getProgress();
+  const groups = [["S","ストラテジ線","var(--S)"],["M","マネジメント線","var(--M)"],["T","テクノロジ線","var(--T)"],["G","序章・総仕上げ","var(--G)"]];
+  document.getElementById("lessonProg").innerHTML = '<div class="score-rows">' + groups.map(([c,label,color])=>{
+    const items = window.CURRICULUM.filter(x=>x.cat===c);
+    const done = items.filter(x=>prog[x.id]).length;
+    const pct = items.length ? Math.round(done/items.length*100) : 0;
+    return '<div class="score-row"><span>' + label + '</span>' +
+      '<div class="bar"><i style="width:' + pct + '%;background:' + color + '"></i></div>' +
+      '<span class="val">' + done + ' / ' + items.length + '</span></div>';
+  }).join('') + '</div>';
+
+  // 演習統計
+  const s = IPSS.getQuizStats();
+  const rows = [["S","ストラテジ","var(--S)"],["M","マネジメント","var(--M)"],["T","テクノロジ","var(--T)"]];
+  document.getElementById("quizStats").innerHTML = rows.map(([c,label,color])=>{
+    const st = s[c] || {c:0,t:0};
+    const pct = st.t ? Math.round(st.c/st.t*100) : 0;
+    return '<div class="score-row"><span>' + label + '</span>' +
+      '<div class="bar"><i style="width:' + pct + '%;background:' + color + '"></i><span class="th" style="left:70%"></span></div>' +
+      '<span class="val ' + (st.t ? (pct>=70?'ok':'ng') : '') + '">' + (st.t ? pct + '%(' + st.c + '/' + st.t + ')' : '未実施') + '</span></div>';
+  }).join('');
+
+  // 模擬テスト履歴
+  const hist = IPSS.getExamHist();
+  const el = document.getElementById("examHist");
+  if(!hist.length){
+    el.innerHTML = '<p class="empty">まだ模擬テストの記録がありません。<a href="exam.html">最初の1回</a>は現在地を知るための計測——満点を狙う必要はありません。</p>';
+  } else {
+    el.innerHTML = '<table class="hist-table"><thead><tr>' +
+      '<th>日付</th><th>問数</th><th>総合</th><th>スト</th><th>マネ</th><th>テク</th><th>判定</th></tr></thead><tbody>' +
+      hist.slice().reverse().map(h=>
+        '<tr><td class="mono">' + IPSS.esc(h.date) + '</td><td class="mono">' + h.n + '</td>' +
+        '<td class="mono">' + h.total + '</td><td class="mono">' + h.S + '</td><td class="mono">' + h.M + '</td><td class="mono">' + h.T + '</td>' +
+        '<td class="' + (h.pass?'p':'f') + '">' + (h.pass?'合格':'不合格') + '</td></tr>'
+      ).join('') + '</tbody></table>';
+  }
+})();
+</script>
+</body>
+</html>

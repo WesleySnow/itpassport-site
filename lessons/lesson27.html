@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第27回 セキュリティ② 暗号と認証 | ITパスポート学習マップ</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="page-lesson" data-lesson="27">
+<header class="site-head">
+ <a class="brand" href="../index.html">IP<span>PASS</span> 学習マップ</a>
+ <nav><a href="../quiz.html">演習</a><a href="../exam.html">模擬テスト</a><a href="../glossary.html">用語辞典</a><a href="../dashboard.html">記録</a></nav>
+</header>
+<main class="wrap">
+ <p class="eyebrow cat-T">テクノロジ系 ・ 第27回</p>
+ <h1 class="lesson-title">セキュリティ② 暗号と認証</h1>
+ <p class="win"><strong>この回の勝利:</strong> 共通鍵/公開鍵・デジタル署名・PKIの仕組みを図で説明できる</p>
+
+<section class="lsec"><h2>暗号 — 鍵の持ち主で考える</h2>
+<p><strong>共通鍵暗号</strong>=同じ鍵で暗号化・復号(速いが鍵の受け渡しが課題)。<strong>公開鍵暗号</strong>=暗号化は<strong>受信者の公開鍵</strong>、復号は対になる<strong>受信者の秘密鍵</strong>。「Bの秘密鍵で暗号化されたものはBの公開鍵で誰でも復号できる」——これが署名の原理です(令和7年度 問89の整理: 共通鍵○・自分宛の公開鍵暗号○・相手の秘密鍵暗号○、相手の公開鍵で暗号化されたものだけ読めない)。</p>
+<dl>
+<dt>デジタル署名</dt><dd>送信者の秘密鍵で署名→改ざん検知+本人性(なりすまし・否認防止)。</dd>
+<dt>PKI / CA / CRL</dt><dd>認証局(CA)が証明書で公開鍵の正当性を保証する基盤。<strong>CRL=有効期間内に失効した証明書のリスト</strong>(秘密鍵漏えい等。問87)。</dd>
+<dt>TLS / VPN</dt><dd>Web通信の暗号化(HTTPS)/公衆回線上の仮想専用線。</dd>
+</dl>
+</section>
+<section class="lsec"><h2>認証と防御の仕組み</h2>
+<dl>
+<dt>認証の3要素</dt><dd>知識(パスワード、秘密の質問)・<strong>所有物(SMS認証=その端末を持っている証明</strong>。問100)・生体(虹彩、筆跡)。2つ以上の組合せ=多要素認証。</dd>
+<dt>FAR / FRR のトレードオフ</dt><dd>他人受入率を低く=安全性が上がるが本人拒否が増える。本人拒否率を低く=利便性が上がるが他人受入が増える(問69)。</dd>
+<dt>防御の布陣</dt><dd>ファイアウォール(通過制御)、<strong>IDS=不正アクセスを検知し報告</strong>(問77。防御まで行うのはIPS)、DMZ(外部公開サーバの隔離区画)、WAF(Webアプリ防御)。</dd>
+<dt>物理的対策 / デジタルフォレンジックス</dt><dd>ICカードによる入退室管理は<strong>物理的</strong>対策(問88)/法的紛争に備え電子証拠を収集・保全(問74)。</dd>
+</dl>
+<div class="expoint">暗号問題は「誰の・どちらの鍵か」を図に書けば機械的に解けます。R07ではこの回の範囲から7問出題——テクノロジ系で最も配点の厚い駅です。</div>
+</section>
+
+ <div class="lesson-nav">
+  <a class="btn ghost" href="lesson26.html">← 第26回</a>
+  <a class="btn ghost" href="../quiz.html?cat=T">この分野の演習へ</a>
+  <button class="btn done-btn" id="doneBtn">この回を完了にする</button>
+  <a class="btn ghost" href="lesson28.html">第28回 →</a>
+ </div>
+</main>
+<script src="../assets/app.js"></script>
+<script>IPSS.initLessonPage(27);</script>
+</body>
+</html>

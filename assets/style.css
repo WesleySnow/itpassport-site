@@ -1,0 +1,296 @@
+/* ════════════════════════════════════════════
+   IPPASS 学習マップ — デザインシステム
+   コンセプト: 路線図 × 国家試験の格式
+   分野色: ストラテジ=山吹 / マネジメント=青磁 / テクノロジ=瑠璃
+   完了・合格 = 朱印(vermilion stamp)
+   ════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+:root{
+  --paper:#F6F7F3;
+  --panel:#FFFFFF;
+  --ink:#1D242D;
+  --ink-dim:#5B6470;
+  --line:#DCDFD8;
+  --S:#B07C10;  --S-soft:#F6EDDA;
+  --M:#177F6B;  --M-soft:#E2F1ED;
+  --T:#2A55B8;  --T-soft:#E4EAF8;
+  --G:#5B6470;  --G-soft:#EBEDEF;
+  --seal:#B8402E; --seal-soft:#F7E5E1;
+  --ok:#177F6B; --ng:#B8402E;
+  --r:10px;
+  --serif:'Shippori Mincho', serif;
+  --sans:'Noto Sans JP', sans-serif;
+  --mono:'JetBrains Mono', monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.75}
+a{color:inherit}
+img,svg{display:block;max-width:100%}
+button{font-family:inherit;font-size:inherit;cursor:pointer}
+
+/* ── ヘッダー ── */
+.site-head{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:14px 20px;border-bottom:1px solid var(--line);background:var(--panel);
+  position:sticky;top:0;z-index:50;flex-wrap:wrap}
+.brand{font-family:var(--mono);font-weight:600;font-size:17px;letter-spacing:.04em;text-decoration:none}
+.brand span{color:var(--seal)}
+.site-head nav{display:flex;gap:4px;flex-wrap:wrap}
+.site-head nav a{text-decoration:none;font-size:13.5px;font-weight:500;color:var(--ink-dim);
+  padding:6px 10px;border-radius:6px}
+.site-head nav a:hover,.site-head nav a.on{color:var(--ink);background:var(--paper)}
+
+.wrap{max-width:880px;margin:0 auto;padding:28px 18px 90px}
+
+/* ── タイポ ── */
+h1{font-family:var(--serif);font-weight:700;line-height:1.35}
+.eyebrow{font-family:var(--mono);font-size:12.5px;font-weight:600;letter-spacing:.12em;color:var(--ink-dim);margin-bottom:6px}
+.eyebrow.cat-S{color:var(--S)} .eyebrow.cat-M{color:var(--M)} .eyebrow.cat-T{color:var(--T)}
+.dim{color:var(--ink-dim);font-size:14px}
+.mono{font-family:var(--mono)}
+
+/* ── ボタン ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:11px 20px;border-radius:var(--r);border:1px solid var(--ink);
+  background:var(--ink);color:#fff;font-weight:600;font-size:15px;text-decoration:none;
+  transition:opacity .15s}
+.btn:hover{opacity:.85}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.seal{background:var(--seal);border-color:var(--seal)}
+.btn:disabled{opacity:.4;cursor:default}
+.btn.sm{padding:7px 14px;font-size:13.5px}
+
+/* ── ヒーロー(トップ) ── */
+.hero{padding:34px 0 26px}
+.hero h1{font-size:min(8.4vw,40px);margin:8px 0 14px}
+.hero .lede{max-width:560px;color:var(--ink-dim);font-size:15.5px}
+.hero .pass-rule{display:inline-flex;align-items:baseline;gap:14px;margin-top:18px;
+  padding:12px 18px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);
+  font-family:var(--mono);font-size:13.5px;flex-wrap:wrap}
+.pass-rule b{font-size:21px;color:var(--seal)}
+.notice{margin-top:14px;font-size:13.5px;color:var(--ink-dim)}
+.notice .mono{color:var(--seal)}
+
+/* ── 機能カード ── */
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:26px 0 8px}
+.tool{display:block;text-decoration:none;background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--r);padding:16px;transition:border-color .15s}
+.tool:hover{border-color:var(--ink)}
+.tool .t-name{font-weight:700;font-size:15.5px;display:flex;align-items:center;gap:8px}
+.tool .t-desc{font-size:13px;color:var(--ink-dim);margin-top:5px;line-height:1.6}
+.tool .glyph{width:20px;height:20px;stroke:var(--seal);fill:none;stroke-width:1.8;flex:none}
+
+/* ── 路線図マップ ── */
+.metro{margin-top:34px}
+.metro h2{font-family:var(--serif);font-size:21px;margin-bottom:4px}
+.metro .sub{font-size:13.5px;color:var(--ink-dim);margin-bottom:20px}
+.mline{margin:0 0 26px}
+.mline-head{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
+.mline-name{font-family:var(--serif);font-weight:700;font-size:17px}
+.mline-count{font-family:var(--mono);font-size:12.5px;color:var(--ink-dim)}
+.mline-bar{height:4px;border-radius:2px;background:var(--line);position:relative;overflow:hidden;margin-bottom:14px}
+.mline-bar i{position:absolute;inset:0;right:auto;border-radius:2px}
+.mline.S .mline-name{color:var(--S)}
+.mline.M .mline-name{color:var(--M)}
+.mline.T .mline-name{color:var(--T)}
+.mline.S .mline-bar i{background:var(--S)}
+.mline.M .mline-bar i{background:var(--M)}
+.mline.T .mline-bar i{background:var(--T)}
+.mline.G .mline-bar i{background:var(--G)}
+.stations{list-style:none;position:relative;padding-left:34px}
+.stations::before{content:"";position:absolute;left:11px;top:10px;bottom:10px;width:5px;border-radius:3px;background:var(--line)}
+.mline.S .stations::before{background:var(--S)}
+.mline.M .stations::before{background:var(--M)}
+.mline.T .stations::before{background:var(--T)}
+.mline.G .stations::before{background:var(--G)}
+.station{position:relative;margin:2px 0}
+.station a{display:flex;align-items:center;gap:10px;text-decoration:none;padding:9px 10px;
+  border-radius:8px;transition:background .12s}
+.station a:hover{background:var(--panel)}
+.station .dot{position:absolute;left:-30px;top:50%;transform:translateY(-50%);
+  width:19px;height:19px;border-radius:50%;background:var(--paper);border:4px solid var(--line);z-index:1}
+.mline.S .dot{border-color:var(--S)} .mline.M .dot{border-color:var(--M)}
+.mline.T .dot{border-color:var(--T)} .mline.G .dot{border-color:var(--G)}
+.station.done .dot{background:var(--seal);border-color:var(--seal);box-shadow:0 0 0 3px var(--seal-soft)}
+.station .no{font-family:var(--mono);font-size:12px;color:var(--ink-dim);width:24px;flex:none}
+.station .name{font-size:14.5px;font-weight:500;flex:1;min-width:0}
+.station.done .name{color:var(--ink-dim)}
+.badge{font-family:var(--mono);font-size:10.5px;font-weight:600;padding:2px 7px;border-radius:99px;flex:none}
+.badge.calc{background:var(--G-soft);color:var(--G)}
+.badge.star{background:var(--seal-soft);color:var(--seal)}
+.stamp{font-family:var(--serif);font-size:11px;font-weight:700;color:var(--seal);
+  border:1.5px solid var(--seal);border-radius:4px;padding:1px 5px;flex:none;transform:rotate(-6deg)}
+
+/* ── 講義ページ ── */
+.lesson-title{font-size:min(7vw,30px);margin:2px 0 12px}
+.win{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--seal);
+  border-radius:var(--r);padding:13px 16px;font-size:14.5px;margin-bottom:22px}
+.placeholder{border:1.5px dashed var(--line);border-radius:var(--r);padding:26px 20px;
+  color:var(--ink-dim);font-size:14.5px;background:var(--panel)}
+.placeholder p+p{margin-top:8px}
+.lesson-nav{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap;align-items:center}
+.done-btn.is-done{background:var(--seal);border-color:var(--seal)}
+
+/* ── 演習(quiz) / 模擬テスト(exam) 共通 ── */
+.setup{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:22px 20px;margin-top:18px}
+.setup h2{font-family:var(--serif);font-size:19px;margin-bottom:14px}
+.opt-row{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 16px}
+.chip{padding:8px 15px;border-radius:99px;border:1.5px solid var(--line);background:var(--panel);
+  font-size:13.5px;font-weight:500}
+.chip.on{border-color:var(--ink);background:var(--ink);color:#fff}
+.chip.on.c-S{background:var(--S);border-color:var(--S)}
+.chip.on.c-M{background:var(--M);border-color:var(--M)}
+.chip.on.c-T{background:var(--T);border-color:var(--T)}
+.q-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:20px;margin-top:18px}
+.q-meta{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.q-tag{font-family:var(--mono);font-size:12px;font-weight:600;padding:3px 9px;border-radius:99px}
+.q-tag.S{background:var(--S-soft);color:var(--S)}
+.q-tag.M{background:var(--M-soft);color:var(--M)}
+.q-tag.T{background:var(--T-soft);color:var(--T)}
+.q-text{font-size:16px;font-weight:500;line-height:1.85}
+.choices{list-style:none;margin-top:16px;display:grid;gap:9px}
+.choice{display:flex;gap:11px;align-items:flex-start;width:100%;text-align:left;
+  padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--r);background:var(--paper);
+  font-size:14.5px;line-height:1.65;transition:border-color .12s}
+.choice:hover{border-color:var(--ink-dim)}
+.choice .key{font-family:var(--mono);font-weight:600;color:var(--ink-dim);flex:none}
+.choice.picked{border-color:var(--ink);background:#fff}
+.choice.correct{border-color:var(--ok);background:var(--M-soft)}
+.choice.wrong{border-color:var(--ng);background:var(--seal-soft)}
+.choice:disabled{cursor:default}
+.feedback{margin-top:14px;padding:14px 16px;border-radius:var(--r);font-size:14px;line-height:1.75}
+.feedback.ok{background:var(--M-soft);border:1px solid var(--M)}
+.feedback.ng{background:var(--seal-soft);border:1px solid var(--seal)}
+.feedback b{font-family:var(--serif)}
+.q-actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;align-items:center}
+.progress-line{font-family:var(--mono);font-size:13px;color:var(--ink-dim)}
+
+/* ── 模擬テスト固有 ── */
+.exam-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+  position:sticky;top:57px;background:var(--paper);padding:10px 0;z-index:40;border-bottom:1px solid var(--line)}
+.timer{font-family:var(--mono);font-size:22px;font-weight:600}
+.timer.low{color:var(--seal)}
+.nav-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(40px,1fr));gap:6px;margin-top:14px}
+.nav-cell{font-family:var(--mono);font-size:12.5px;padding:8px 0;border:1.5px solid var(--line);
+  border-radius:7px;background:var(--panel);text-align:center}
+.nav-cell.answered{background:var(--ink);color:#fff;border-color:var(--ink)}
+.nav-cell.flagged{border-color:var(--S);box-shadow:inset 0 0 0 1px var(--S)}
+.nav-cell.now{outline:2px solid var(--seal);outline-offset:1px}
+.result-seal{display:flex;flex-direction:column;align-items:center;gap:6px;margin:26px auto 10px;
+  width:150px;height:150px;border:4px solid var(--seal);border-radius:50%;justify-content:center;
+  color:var(--seal);transform:rotate(-8deg)}
+.result-seal .verdict{font-family:var(--serif);font-size:34px;font-weight:700;letter-spacing:.1em}
+.result-seal .score{font-family:var(--mono);font-size:14px}
+.result-seal.fail{border-color:var(--ink-dim);color:var(--ink-dim)}
+.score-rows{margin-top:22px;display:grid;gap:10px}
+.score-row{display:grid;grid-template-columns:110px 1fr 92px;gap:12px;align-items:center;font-size:14px}
+.score-row .bar{height:9px;border-radius:5px;background:var(--line);position:relative;overflow:hidden}
+.score-row .bar i{position:absolute;inset:0;right:auto;border-radius:5px}
+.score-row .bar .th{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink)}
+.score-row .val{font-family:var(--mono);font-size:13px;text-align:right}
+.val.ok{color:var(--ok)} .val.ng{color:var(--ng)}
+
+/* ── 用語辞典 ── */
+.search-box{width:100%;padding:13px 16px;border:1.5px solid var(--line);border-radius:var(--r);
+  font-size:15.5px;background:var(--panel);margin-top:16px;font-family:var(--sans)}
+.search-box:focus{outline:2px solid var(--ink);outline-offset:1px}
+.term-list{margin-top:16px;display:grid;gap:10px}
+.term-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:15px 17px}
+.term-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.term-name{font-weight:700;font-size:16.5px}
+.term-en{font-family:var(--mono);font-size:12px;color:var(--ink-dim)}
+.term-def{font-size:14px;color:var(--ink);margin-top:6px;line-height:1.8}
+.term-link{font-size:12.5px;margin-top:7px}
+.term-link a{color:var(--ink-dim)}
+
+/* ── ダッシュボード ── */
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:20px;margin-top:16px}
+.panel h2{font-family:var(--serif);font-size:18px;margin-bottom:14px}
+.hist-table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:6px}
+.hist-table th,.hist-table td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left}
+.hist-table th{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--ink-dim);font-weight:600}
+.hist-table .p{color:var(--ok);font-weight:700}.hist-table .f{color:var(--ink-dim)}
+.empty{color:var(--ink-dim);font-size:14px;padding:8px 0}
+
+footer.site-foot{max-width:880px;margin:0 auto;padding:20px 18px 40px;color:var(--ink-dim);
+  font-size:12px;border-top:1px solid var(--line);line-height:1.8}
+
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:560px){
+  .score-row{grid-template-columns:86px 1fr 86px}
+  .site-head nav a{padding:6px 7px;font-size:12.5px}
+}
+
+/* ── 問題文の改行(表・複数条件の問題用) ── */
+.q-text{white-space:pre-line}
+.q-src{font-family:var(--mono);font-size:11.5px;color:var(--ink-dim)}
+
+/* ── 講義本文 ── */
+.lsec{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:20px;margin-top:16px}
+.lsec h2{font-family:var(--serif);font-size:18.5px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.lsec p{font-size:14.5px;margin:8px 0}
+.lsec dl{margin:10px 0;display:grid;gap:8px}
+.lsec dt{font-weight:700;font-size:14.5px}
+.lsec dt .en{font-family:var(--mono);font-weight:400;font-size:11.5px;color:var(--ink-dim);margin-left:6px}
+.lsec dd{font-size:14px;color:var(--ink);margin-left:0;padding-left:12px;border-left:3px solid var(--line);line-height:1.75}
+.expoint{margin-top:12px;padding:12px 15px;border-radius:8px;background:var(--seal-soft);border:1px solid var(--seal);font-size:13.5px;line-height:1.75}
+.expoint::before{content:"出題ポイント ";font-family:var(--serif);font-weight:700;color:var(--seal)}
+.lsec table{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0}
+.lsec th,.lsec td{border:1px solid var(--line);padding:7px 9px;text-align:left}
+.lsec th{background:var(--paper);font-size:12.5px}
+
+/* ════════ UI v2: 清潔感・テンポ・スマホ・記憶定着 ════════ */
+:root{--paper:#F8F9F6;--line:#E3E6DE;--r:12px;--shadow:0 1px 2px rgba(29,36,45,.04),0 4px 14px rgba(29,36,45,.05)}
+.tool,.q-card,.setup,.panel,.term-card,.lsec{box-shadow:var(--shadow);border-color:var(--line)}
+.wrap{padding-top:24px}
+.site-head{padding:13px 20px}
+
+/* 導線: 続きからCTA・3ステップ */
+.continue-cta{display:flex;align-items:center;gap:14px;margin-top:20px;padding:16px 18px;
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);
+  text-decoration:none;transition:border-color .15s}
+.continue-cta:hover{border-color:var(--seal)}
+.continue-cta .cc-dot{width:38px;height:38px;border-radius:50%;background:var(--seal-soft);
+  display:flex;align-items:center;justify-content:center;flex:none}
+.continue-cta .cc-dot svg{width:18px;height:18px;stroke:var(--seal);fill:none;stroke-width:2}
+.continue-cta .cc-label{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--seal);font-weight:600}
+.continue-cta .cc-title{font-weight:700;font-size:15px;line-height:1.4}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.step{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;box-shadow:var(--shadow)}
+.step .s-no{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--ink-dim);letter-spacing:.08em}
+.step .s-name{font-weight:700;font-size:14px;margin-top:2px}
+.step .s-desc{font-size:12px;color:var(--ink-dim);margin-top:3px;line-height:1.6}
+@media(max-width:560px){.steps{grid-template-columns:1fr;gap:8px}}
+
+/* 記憶定着: 出題ポイントの視覚強化 */
+.expoint{background:linear-gradient(0deg,var(--seal-soft),var(--seal-soft));border:none;
+  border-left:4px solid var(--seal);border-radius:8px;padding:13px 16px}
+.expoint::before{display:block;font-size:12px;letter-spacing:.1em;margin-bottom:3px}
+
+/* 用語辞典 v2 */
+.glossary-head{position:sticky;top:57px;z-index:30;background:var(--paper);padding:12px 0 10px;
+  border-bottom:1px solid var(--line)}
+.term-card{border-left:3px solid var(--line)}
+.term-card.is-star{border-left-color:var(--seal)}
+.gcount{font-family:var(--mono);font-size:12px;color:var(--ink-dim);margin-left:auto}
+.chip .n{font-family:var(--mono);font-size:11px;opacity:.75;margin-left:4px}
+
+/* スマホ: 下部タブバー + タッチターゲット */
+.bottom-nav{display:none}
+@media(max-width:640px){
+  body{padding-bottom:64px}
+  .site-head nav{display:none}
+  .bottom-nav{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;z-index:60;
+    background:var(--panel);border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+  .bottom-nav a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;
+    font-size:10.5px;font-weight:600;color:var(--ink-dim);padding:5px 2px;border-radius:8px}
+  .bottom-nav a.on{color:var(--seal)}
+  .bottom-nav svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8}
+  .choice{padding:13px 14px}
+  .hero{padding:22px 0 18px}
+  .hero h1{font-size:7.6vw}
+  .glossary-head{top:53px}
+  .exam-top{top:53px}
+  .nav-cell{padding:10px 0}
+}

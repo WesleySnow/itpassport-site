@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第21回 ソフトウェアとハードウェア | ITパスポート学習マップ</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="page-lesson" data-lesson="21">
+<header class="site-head">
+ <a class="brand" href="../index.html">IP<span>PASS</span> 学習マップ</a>
+ <nav><a href="../quiz.html">演習</a><a href="../exam.html">模擬テスト</a><a href="../glossary.html">用語辞典</a><a href="../dashboard.html">記録</a></nav>
+</header>
+<main class="wrap">
+ <p class="eyebrow cat-T">テクノロジ系 ・ 第21回</p>
+ <h1 class="lesson-title">ソフトウェアとハードウェア</h1>
+ <p class="win"><strong>この回の勝利:</strong> OSの役割・ファイル管理・OSSのライセンス感覚を説明できる</p>
+
+<section class="lsec"><h2>OSの役割</h2>
+<p>OSはハードウェアとアプリの仲介役: タスク管理(CPU時間の割り振り)、メモリ管理、ファイル管理、デバイスドライバによる周辺機器制御。<strong>仮想記憶</strong>=主記憶(物理)の容量に制約されない論理的なアドレス空間を提供する仕組み(令和7年度 問62)——補助記憶を主記憶の延長として使います。</p>
+<p>ファイル管理では階層構造(ディレクトリ)、絶対パスと相対パス、拡張子、バックアップの世代管理(フルバックアップと差分・増分)を押さえます。</p>
+</section>
+<section class="lsec"><h2>表計算 — 相対参照と絶対参照</h2>
+<p>式を複写すると、<strong>相対参照(B4)は位置に応じてずれ、絶対参照($を付けたB$1)は固定</strong>されます。「税率のセルは固定、価格のセルはずらす」→ B4*(1+B$1) が正解の型(問76)。$は「行の前なら行を固定、列の前なら列を固定」。下方向への複写なら行の固定だけ考えればOK。</p>
+</section>
+<section class="lsec"><h2>OSS — 著作権は放棄されていない</h2>
+<p>OSS(オープンソースソフトウェア)は、ソースコードが公開され、ライセンスの条件下で利用・改変・再配布ができるソフトウェア。企業・団体が開発したものもあり(Linux、Androidなど)、<strong>著作権は保持されたままライセンスで許諾</strong>されている点が最大の引っかけどころです(問96)。原則、無保証。</p>
+<div class="expoint">表計算の複写問題はR07 問76型がそのまま再出題されやすい定番。「どのセルを固定したいか」を日本語で言ってから$を付ける習慣をつけましょう。</div>
+</section>
+
+ <div class="lesson-nav">
+  <a class="btn ghost" href="lesson20.html">← 第20回</a>
+  <a class="btn ghost" href="../quiz.html?cat=T">この分野の演習へ</a>
+  <button class="btn done-btn" id="doneBtn">この回を完了にする</button>
+  <a class="btn ghost" href="lesson22.html">第22回 →</a>
+ </div>
+</main>
+<script src="../assets/app.js"></script>
+<script>IPSS.initLessonPage(21);</script>
+</body>
+</html>

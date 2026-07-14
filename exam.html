@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>模擬テスト | ITパスポート学習マップ</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site-head">
+ <a class="brand" href="index.html">IP<span>PASS</span> 学習マップ</a>
+ <nav><a href="quiz.html">演習</a><a class="on" href="exam.html">模擬テスト</a><a href="glossary.html">用語辞典</a><a href="dashboard.html">記録</a></nav>
+</header>
+
+<main class="wrap">
+ <p class="eyebrow">MOCK EXAM ・ CBT形式</p>
+ <h1 class="lesson-title">模擬テスト</h1>
+
+ <!-- 設定画面 -->
+ <section class="setup" id="setup">
+  <h2>形式を選ぶ</h2>
+  <div class="opt-row" id="modeRow">
+   <button class="chip on" data-n="30" data-min="36">クイック 30問・36分</button>
+   <button class="chip" data-n="100" data-min="120">本番形式 100問・120分</button>
+   <button class="chip" data-n="all" data-min="0">収録全問(時間比例)</button>
+  </div>
+  <p class="dim" style="margin-bottom:16px">
+   本番は100問・120分(1問あたり1.2分)。出題は本番の配点比率(ストラテジ35% / マネジメント20% / テクノロジ45%)でサンプリングし、
+   得点は1000点満点に換算して<strong>総合600点以上かつ各分野300点以上</strong>で合格判定します。
+  </p>
+  <button class="btn seal" id="startBtn">試験をはじめる</button>
+ </section>
+
+ <!-- 試験画面 -->
+ <section id="examUI" hidden>
+  <div class="exam-top">
+   <span class="timer" id="timer">--:--</span>
+   <div style="display:flex;gap:8px">
+    <button class="btn ghost sm" id="flagBtn">あとで見直す</button>
+    <button class="btn sm" id="finishBtn">試験を終了する</button>
+   </div>
+  </div>
+  <div id="qArea"></div>
+  <div class="nav-grid" id="navGrid"></div>
+ </section>
+
+ <!-- 結果画面 -->
+ <section id="resultUI" hidden></section>
+</main>
+
+<script src="data/questions.js"></script>
+<script src="data/questions_r07_s.js"></script>
+<script src="data/questions_r07_m.js"></script>
+<script src="data/questions_r07_t.js"></script>
+<script src="data/questions_r06_s.js"></script>
+<script src="data/questions_r06_m.js"></script>
+<script src="data/questions_r06_t.js"></script>
+<script src="data/questions_r05.js"></script>
+<script src="data/questions_r04_s.js"></script>
+<script src="data/questions_r04_m.js"></script>
+<script src="data/questions_r04_t.js"></script>
+<script src="data/questions_r03_s.js"></script>
+<script src="data/questions_r03_m.js"></script>
+<script src="data/questions_r03_t.js"></script>
+<script src="data/questions_r08_s.js"></script>
+<script src="data/questions_r08_m.js"></script>
+<script src="data/questions_r08_t.js"></script>
+<script src="assets/app.js"></script>
+<script>
+(function(){
+  const KEYS = ["ア","イ","ウ","エ"];
+  let n = 30, minutes = 36;
+  document.getElementById("modeRow").addEventListener("click", e=>{
+    const b = e.target.closest(".chip"); if(!b) return;
+    [...e.currentTarget.children].forEach(c=>c.classList.toggle("on", c===b));
+    if(b.dataset.n === "all"){ n = window.QUESTIONS.length; minutes = Math.ceil(n * 1.2); }
+    else { n = parseInt(b.dataset.n,10); minutes = parseInt(b.dataset.min,10); }
+  });
+
+  let qs = [], answers = [], flags = [], cur = 0, deadline = 0, tick = null;
+
+  const setup = document.getElementById("setup");
+  const examUI = document.getElementById("examUI");
+  const resultUI = document.getElementById("resultUI");
+  const timerEl = document.getElementById("timer");
+  const qArea = document.getElementById("qArea");
+  const navGrid = document.getElementById("navGrid");
+
+  document.getElementById("startBtn").addEventListener("click", ()=>{
+    n = Math.min(n, window.QUESTIONS.length);
+    qs = IPSS.sampleExam(n);
+    answers = new Array(qs.length).fill(null);
+    flags = new Array(qs.length).fill(false);
+    cur = 0;
+    deadline = Date.now() + minutes * 60000;
+    setup.hidden = true; resultUI.hidden = true; examUI.hidden = false;
+    tick = setInterval(updateTimer, 500);
+    updateTimer(); render();
+  });
+
+  function updateTimer(){
+    const left = Math.max(0, deadline - Date.now());
+    const m = Math.floor(left/60000), s = Math.floor(left%60000/1000);
+    timerEl.textContent = String(m).padStart(2,"0") + ":" + String(s).padStart(2,"0");
+    timerEl.classList.toggle("low", left < 5*60000);
+    if(left <= 0){ finish(); }
+  }
+
+  function render(){
+    const q = qs[cur];
+    qArea.innerHTML =
+      '<div class="q-card">' +
+      '<div class="q-meta"><span class="q-tag ' + q.cat + '">' + IPSS.CAT[q.cat].name + '</span>' +
+      '<span class="progress-line">問' + (cur+1) + ' / ' + qs.length + (flags[cur] ? ' ・ 見直し予定' : '') + '</span></div>' +
+      '<p class="q-text">' + IPSS.esc(q.q) + '</p>' +
+      '<ul class="choices">' + q.opts.map((o,i)=>
+        '<li><button class="choice' + (answers[cur]===i ? ' picked' : '') + '" data-i="' + i + '">' +
+        '<span class="key">' + KEYS[i] + '</span><span>' + IPSS.esc(o) + '</span></button></li>'
+      ).join('') + '</ul>' +
+      '<div class="q-actions">' +
+      '<button class="btn ghost sm" id="prevQ"' + (cur===0?' disabled':'') + '>← 前へ</button>' +
+      '<button class="btn ghost sm" id="nextQ"' + (cur===qs.length-1?' disabled':'') + '>次へ →</button>' +
+      '</div></div>';
+    qArea.querySelectorAll(".choice").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        answers[cur] = parseInt(btn.dataset.i,10);
+        if(cur < qs.length-1) cur++;
+        render();
+      });
+    });
+    document.getElementById("prevQ").addEventListener("click", ()=>{ if(cur>0){cur--;render();} });
+    document.getElementById("nextQ").addEventListener("click", ()=>{ if(cur<qs.length-1){cur++;render();} });
+    renderNav();
+  }
+
+  function renderNav(){
+    navGrid.innerHTML = qs.map((q,i)=>
+      '<button class="nav-cell' + (answers[i]!==null?' answered':'') + (flags[i]?' flagged':'') + (i===cur?' now':'') + '" data-i="'+i+'">' + (i+1) + '</button>'
+    ).join('');
+    navGrid.querySelectorAll(".nav-cell").forEach(c=>{
+      c.addEventListener("click", ()=>{ cur = parseInt(c.dataset.i,10); render(); });
+    });
+  }
+
+  document.getElementById("flagBtn").addEventListener("click", ()=>{ flags[cur] = !flags[cur]; render(); });
+  document.getElementById("finishBtn").addEventListener("click", ()=>{
+    const un = answers.filter(a=>a===null).length;
+    if(un > 0 && !confirm("未回答が" + un + "問あります。終了しますか?")) return;
+    finish();
+  });
+
+  function finish(){
+    clearInterval(tick);
+    examUI.hidden = true;
+    // 採点(1000点換算)
+    const per = {S:{c:0,t:0},M:{c:0,t:0},T:{c:0,t:0}};
+    let correct = 0;
+    qs.forEach((q,i)=>{
+      per[q.cat].t++;
+      const ok = answers[i] === q.ans;
+      if(ok){ per[q.cat].c++; correct++; }
+      IPSS.recordAnswer(q.cat, ok);
+    });
+    const total = Math.round(correct / qs.length * 1000);
+    const catScore = c => per[c].t ? Math.round(per[c].c / per[c].t * 1000) : 0;
+    const sS = catScore("S"), sM = catScore("M"), sT = catScore("T");
+    const pass = total >= 600 && sS >= 300 && sM >= 300 && sT >= 300;
+    IPSS.recordExam({date: new Date().toISOString().slice(0,10), total, S:sS, M:sM, T:sT, pass, n:qs.length});
+
+    const row = (label, val, color, th)=>{
+      const ok = val >= th;
+      return '<div class="score-row"><span>' + label + '</span>' +
+        '<div class="bar"><i style="width:' + Math.min(100, val/10) + '%;background:' + color + '"></i>' +
+        '<span class="th" style="left:' + th/10 + '%"></span></div>' +
+        '<span class="val ' + (ok?'ok':'ng') + '">' + val + ' / ' + th + '↑</span></div>';
+    };
+    resultUI.innerHTML =
+      '<div class="result-seal' + (pass?'':' fail') + '"><span class="verdict">' + (pass?'合格':'不合格') + '</span>' +
+      '<span class="score">' + total + ' / 1000</span></div>' +
+      '<p class="dim" style="text-align:center">' + qs.length + '問 ・ 正答' + correct + '問(縦線=合格ライン)</p>' +
+      '<div class="score-rows">' +
+      row("総合", total, "var(--ink)", 600) +
+      row("ストラテジ", sS, "var(--S)", 300) +
+      row("マネジメント", sM, "var(--M)", 300) +
+      row("テクノロジ", sT, "var(--T)", 300) +
+      '</div>' +
+      '<div class="q-actions" style="justify-content:center;margin-top:24px">' +
+      '<button class="btn" id="reviewBtn">全問を見直す(解説付き)</button>' +
+      '<a class="btn ghost" href="dashboard.html">記録を見る</a></div>' +
+      '<div id="reviewArea"></div>';
+    resultUI.hidden = false;
+    window.scrollTo(0,0);
+    document.getElementById("reviewBtn").addEventListener("click", ()=>{
+      document.getElementById("reviewArea").innerHTML = qs.map((q,i)=>{
+        const ok = answers[i] === q.ans;
+        return '<div class="q-card">' +
+          '<div class="q-meta"><span class="q-tag ' + q.cat + '">問' + (i+1) + ' ・ ' + IPSS.CAT[q.cat].name + '</span>' +
+          '<span class="val ' + (ok?'ok':'ng') + ' mono">' + (ok?'正解':(answers[i]===null?'未回答':'不正解')) + '</span></div>' +
+          '<p class="q-text">' + IPSS.esc(q.q) + '</p>' +
+          '<div class="feedback ' + (ok?'ok':'ng') + '" style="margin-top:12px">' +
+          '<b>正解: ' + KEYS[q.ans] + '. ' + IPSS.esc(q.opts[q.ans]) + '</b>' +
+          (answers[i]!==null && !ok ? '<br>あなたの回答: ' + KEYS[answers[i]] + '. ' + IPSS.esc(q.opts[answers[i]]) : '') +
+          '<br>' + IPSS.esc(q.exp) + (q.src ? ' <span class="q-src">〔出典: ITパスポート試験 ' + IPSS.esc(q.src) + '(IPA)〕</span>' : '') +
+          '<div class="term-link" style="margin-top:8px"><a href="lessons/lesson' + String(q.lesson).padStart(2,"0") + '.html">→ 第' + String(q.lesson).padStart(2,"0") + '回で復習</a></div>' +
+          '</div></div>';
+      }).join('');
+      document.getElementById("reviewBtn").remove();
+    });
+  }
+})();
+</script>
+</body>
+</html>

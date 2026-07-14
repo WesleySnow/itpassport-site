@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITパスポート学習マップ | シラバスVer.6.5対応</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site-head">
+ <a class="brand" href="index.html">IP<span>PASS</span> 学習マップ</a>
+ <nav>
+  <a href="quiz.html">演習</a><a href="exam.html">模擬テスト</a>
+  <a href="glossary.html">用語辞典</a><a href="dashboard.html">記録</a>
+ </nav>
+</header>
+
+<main class="wrap">
+ <section class="hero">
+  <p class="eyebrow">シラバス VER.6.5 対応 ・ 全29回</p>
+  <h1>三本の路線を走り切れば、合格。</h1>
+  <p class="lede">ストラテジ線・マネジメント線・テクノロジ線——29の駅をひとつずつ点灯させていく学習マップです。各駅は「1回=1つの勝利」で設計され、講義の最後には解答なしのクイズ(アクティブリコール)が待っています。</p>
+  <div class="pass-rule">
+   <span>合格条件</span><b>総合600点</b><span>かつ</span><b>各分野300点</b><span>/1000点</span>
+  </div>
+  <p class="notice">※ <span class="mono" id="deadline"></span> 2026年12月28日以降は試験が一時休止予定。年内受験は12月中旬までの完了を推奨。</p>
+  <a class="continue-cta" id="continueCta" href="lessons/lesson01.html">
+   <span class="cc-dot"><svg viewBox="0 0 24 24"><path d="M6 4l12 8-12 8z"/></svg></span>
+   <span><span class="cc-label">CONTINUE</span><br><span class="cc-title" id="ccTitle">第01回からはじめる</span></span>
+  </a>
+  <div class="steps">
+   <div class="step"><p class="s-no">STEP 1</p><p class="s-name">駅で学ぶ</p><p class="s-desc">路線図の駅(講義)を順に。1駅10分前後で読み切れる分量です。</p></div>
+   <div class="step"><p class="s-no">STEP 2</p><p class="s-name">演習で確かめる</p><p class="s-desc">講義末尾から分野別演習へ。間違えた問題は講義リンクで即復習。</p></div>
+   <div class="step"><p class="s-no">STEP 3</p><p class="s-name">模試で測る</p><p class="s-desc">本番形式100問で現在地を計測。300点を割った分野の駅に戻る。</p></div>
+  </div>
+ </section>
+
+ <section class="tools">
+  <a class="tool" href="quiz.html">
+   <p class="t-name"><svg class="glyph" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg>分野別演習</p>
+   <p class="t-desc">分野を選んで一問一答。ミックス出題(インターリーブ)で記憶を混ぜて強くする。</p>
+  </a>
+  <a class="tool" href="exam.html">
+   <p class="t-name"><svg class="glyph" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>模擬テスト</p>
+   <p class="t-desc">タイマー付きCBT形式。総合と分野別の合格ラインを本番と同じ基準で判定。</p>
+  </a>
+  <a class="tool" href="glossary.html">
+   <p class="t-name"><svg class="glyph" viewBox="0 0 24 24"><path d="M4 5a2 2 0 012-2h12v18H6a2 2 0 01-2-2z"/><path d="M8 7h8M8 11h8"/></svg>用語辞典</p>
+   <p class="t-desc">略語とAI新出用語を重点収録。検索と分野フィルタ付き。</p>
+  </a>
+  <a class="tool" href="dashboard.html">
+   <p class="t-name"><svg class="glyph" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg>学習の記録</p>
+   <p class="t-desc">分野別正答率と模擬テストの推移。弱点分野が一目でわかる。</p>
+  </a>
+ </section>
+
+ <section class="metro">
+  <h2>学習路線図</h2>
+  <p class="sub">駅名をタップして講義へ。完了した駅には朱が入ります。<span class="badge calc">計算</span>=計算ドリルあり <span class="badge star">新出</span>=シラバス6.3以降の重点</p>
+  <div id="map"></div>
+ </section>
+</main>
+
+<footer class="site-foot">
+ 出題範囲はIPA「ITパスポート試験 シラバスVer.6.5」(2026年1月)に基づく。演習・模擬テストには、IPA「ITパスポート試験 令和7年度分 公開問題」(出典明記のうえ許諾不要で使用可)97問とオリジナル問題36問を収録。学習の記録はこの端末のブラウザ内にのみ保存されます。
+</footer>
+
+<script src="data/curriculum.js"></script>
+<script src="assets/app.js"></script>
+<script>
+(function(){
+  // 残り日数(試験休止まで)
+  const dl = document.getElementById("deadline");
+  const days = Math.ceil((new Date("2026-12-27T23:59:59") - new Date()) / 86400000);
+  if(days > 0) dl.textContent = "あと" + days + "日 —";
+
+  // 続きから: 次の未完了の駅を指す
+  (function(){
+    const prog = IPSS.getProgress();
+    const next = window.CURRICULUM.find(c => !prog[c.id]);
+    const cta = document.getElementById("continueCta");
+    const title = document.getElementById("ccTitle");
+    if(!next){
+      cta.href = "exam.html";
+      title.textContent = "全駅完了 — 模擬テストへ";
+    } else {
+      cta.href = "lessons/lesson" + String(next.id).padStart(2,"0") + ".html";
+      title.textContent = (Object.keys(prog).length ? "続きから: " : "") +
+        "第" + String(next.id).padStart(2,"0") + "回 " + next.title;
+    }
+  })();
+
+  // 路線図の描画
+  const LINES = [
+    {cat:"G1", key:"G", label:"序章", ids: c => c.cat==="G" && c.id===1},
+    {cat:"S",  key:"S", label:"ストラテジ線", ids: c => c.cat==="S"},
+    {cat:"M",  key:"M", label:"マネジメント線", ids: c => c.cat==="M"},
+    {cat:"T",  key:"T", label:"テクノロジ線", ids: c => c.cat==="T"},
+    {cat:"G2", key:"G", label:"総仕上げ", ids: c => c.cat==="G" && c.id===29}
+  ];
+  const prog = IPSS.getProgress();
+  const map = document.getElementById("map");
+  LINES.forEach(line => {
+    const items = window.CURRICULUM.filter(line.ids);
+    const done = items.filter(c => prog[c.id]).length;
+    const div = document.createElement("div");
+    div.className = "mline " + line.key;
+    let html = '<div class="mline-head"><span class="mline-name">' + line.label +
+      '</span><span class="mline-count">' + done + ' / ' + items.length + ' 完了</span></div>' +
+      '<div class="mline-bar"><i style="width:' + (items.length ? Math.round(done/items.length*100) : 0) + '%"></i></div>' +
+      '<ul class="stations">';
+    items.forEach(c => {
+      const isDone = !!prog[c.id];
+      html += '<li class="station' + (isDone ? ' done' : '') + '">' +
+        '<a href="lessons/lesson' + String(c.id).padStart(2,"0") + '.html">' +
+        '<span class="dot"></span>' +
+        '<span class="no">' + String(c.id).padStart(2,"0") + '</span>' +
+        '<span class="name">' + IPSS.esc(c.title) + '</span>' +
+        (c.calc ? '<span class="badge calc">計算</span>' : '') +
+        (c.star ? '<span class="badge star">新出</span>' : '') +
+        (isDone ? '<span class="stamp">済</span>' : '') +
+        '</a></li>';
+    });
+    html += '</ul>';
+    div.innerHTML = html;
+    map.appendChild(div);
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第25回 ネットワーク② IPアドレスと通信サービス | ITパスポート学習マップ</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="page-lesson" data-lesson="25">
+<header class="site-head">
+ <a class="brand" href="../index.html">IP<span>PASS</span> 学習マップ</a>
+ <nav><a href="../quiz.html">演習</a><a href="../exam.html">模擬テスト</a><a href="../glossary.html">用語辞典</a><a href="../dashboard.html">記録</a></nav>
+</header>
+<main class="wrap">
+ <p class="eyebrow cat-T">テクノロジ系 ・ 第25回</p>
+ <h1 class="lesson-title">ネットワーク② IPアドレスと通信サービス</h1>
+ <p class="win"><strong>この回の勝利:</strong> IPアドレス・サブネット・無線LAN・5G等を説明できる</p>
+
+<section class="lsec"><h2>IPアドレスと通信サービス</h2>
+<dl>
+<dt>IPv4 / IPv6</dt><dd>IPv4は32ビットで枯渇→IPv6は128ビット。グローバルIPアドレス(世界で一意)とプライベートIPアドレス(組織内)、変換するNAT。</dd>
+<dt>無線LAN</dt><dd>ESSID=ネットワークの識別名。暗号化はWEP(脆弱)→<strong>WPA2/WPA3(現行)</strong>(令和7年度 問90)。MACアドレスフィルタリング、ステルス化は補助的対策。</dd>
+<dt>近距離無線</dt><dd><strong>BLE</strong>=Bluetooth Low Energy。省電力でIoT向き、距離推定にも使える(問56)。NFC=かざして通信(交通系ICカード)。</dd>
+<dt>モバイル通信</dt><dd>5G(高速・低遅延・多接続)、SIM、MVNO(仮想移動体通信事業者)、テザリング。<strong>プラチナバンド=700〜900MHz帯、低い周波数ほど障害物を回り込みやすい</strong>(問71)。</dd>
+</dl>
+</section>
+<section class="lsec"><h2>Webの応用サービス</h2>
+<p><strong>RSS</strong>=Webページの見出し・リンク・要約を配信するフォーマット(問64)。cookie=ブラウザに保存される訪問情報。オンラインストレージ、CDN、MaaSなども周辺語として登場します。</p>
+<div class="expoint">「周波数が低い=回り込みやすい=つながりやすい」の物理感覚と、「WEPは古くて危険」の2点はR07で実際に出題済み。数字(700〜900MHz)まで覚えておくと確実です。</div>
+</section>
+
+ <div class="lesson-nav">
+  <a class="btn ghost" href="lesson24.html">← 第24回</a>
+  <a class="btn ghost" href="../quiz.html?cat=T">この分野の演習へ</a>
+  <button class="btn done-btn" id="doneBtn">この回を完了にする</button>
+  <a class="btn ghost" href="lesson26.html">第26回 →</a>
+ </div>
+</main>
+<script src="../assets/app.js"></script>
+<script>IPSS.initLessonPage(25);</script>
+</body>
+</html>

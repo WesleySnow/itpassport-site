@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>分野別演習 | ITパスポート学習マップ</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site-head">
+ <a class="brand" href="index.html">IP<span>PASS</span> 学習マップ</a>
+ <nav><a class="on" href="quiz.html">演習</a><a href="exam.html">模擬テスト</a><a href="glossary.html">用語辞典</a><a href="dashboard.html">記録</a></nav>
+</header>
+
+<main class="wrap">
+ <p class="eyebrow">DRILL</p>
+ <h1 class="lesson-title">分野別演習</h1>
+
+ <section class="setup" id="setup">
+  <h2>出題範囲を選ぶ</h2>
+  <div class="opt-row" id="catRow">
+   <button class="chip c-S" data-cat="S">ストラテジ系</button>
+   <button class="chip c-M" data-cat="M">マネジメント系</button>
+   <button class="chip c-T" data-cat="T">テクノロジ系</button>
+   <button class="chip on" data-cat="mix">ミックス(全分野)</button>
+  </div>
+  <h2>問題数</h2>
+  <div class="opt-row" id="numRow">
+   <button class="chip" data-n="5">5問</button>
+   <button class="chip on" data-n="10">10問</button>
+   <button class="chip" data-n="all">全問</button>
+  </div>
+  <button class="btn seal" id="startBtn">演習をはじめる</button>
+  <p class="dim" style="margin-top:12px">ミックス出題は関連分野の知識を混ぜて出す「インターリーブ」——分野別に固めるより思い出す力が鍛えられます。</p>
+ </section>
+
+ <section id="stage" hidden></section>
+</main>
+
+<script src="data/questions.js"></script>
+<script src="data/questions_r07_s.js"></script>
+<script src="data/questions_r07_m.js"></script>
+<script src="data/questions_r07_t.js"></script>
+<script src="data/questions_r06_s.js"></script>
+<script src="data/questions_r06_m.js"></script>
+<script src="data/questions_r06_t.js"></script>
+<script src="data/questions_r05.js"></script>
+<script src="data/questions_r04_s.js"></script>
+<script src="data/questions_r04_m.js"></script>
+<script src="data/questions_r04_t.js"></script>
+<script src="data/questions_r03_s.js"></script>
+<script src="data/questions_r03_m.js"></script>
+<script src="data/questions_r03_t.js"></script>
+<script src="data/questions_r08_s.js"></script>
+<script src="data/questions_r08_m.js"></script>
+<script src="data/questions_r08_t.js"></script>
+<script src="assets/app.js"></script>
+<script>
+(function(){
+  let cat = "mix", num = "10";
+  // 講義ページからの ?cat=S/M/T リンクで分野を初期選択
+  try{
+    const p = new URLSearchParams(location.search).get("cat");
+    if(p === "S" || p === "M" || p === "T"){
+      cat = p;
+      document.querySelectorAll("#catRow .chip").forEach(function(c){
+        c.classList.toggle("on", c.dataset.cat === p);
+      });
+    }
+  }catch(e){}
+  document.getElementById("catRow").addEventListener("click", e=>{
+    const b = e.target.closest(".chip"); if(!b) return;
+    cat = b.dataset.cat;
+    [...e.currentTarget.children].forEach(c=>c.classList.toggle("on", c===b));
+  });
+  document.getElementById("numRow").addEventListener("click", e=>{
+    const b = e.target.closest(".chip"); if(!b) return;
+    num = b.dataset.n;
+    [...e.currentTarget.children].forEach(c=>c.classList.toggle("on", c===b));
+  });
+
+  const setup = document.getElementById("setup");
+  const stage = document.getElementById("stage");
+  const KEYS = ["ア","イ","ウ","エ"];
+  let queue = [], idx = 0, score = 0;
+
+  document.getElementById("startBtn").addEventListener("click", ()=>{
+    let pool = window.QUESTIONS.filter(q => cat==="mix" || q.cat===cat);
+    pool = IPSS.shuffle(pool);
+    if(num !== "all") pool = pool.slice(0, parseInt(num,10));
+    if(!pool.length) return;
+    queue = pool; idx = 0; score = 0;
+    setup.hidden = true; stage.hidden = false;
+    render();
+  });
+
+  function render(){
+    if(idx >= queue.length){ return finish(); }
+    const q = queue[idx];
+    stage.innerHTML =
+      '<div class="q-card">' +
+      '<div class="q-meta"><span class="q-tag ' + q.cat + '">' + IPSS.CAT[q.cat].name + '</span>' +
+      '<span class="progress-line">' + (idx+1) + ' / ' + queue.length + '</span></div>' +
+      '<p class="q-text">' + IPSS.esc(q.q) + '</p>' +
+      '<ul class="choices">' + q.opts.map((o,i)=>
+        '<li><button class="choice" data-i="' + i + '"><span class="key">' + KEYS[i] + '</span><span>' + IPSS.esc(o) + '</span></button></li>'
+      ).join('') + '</ul>' +
+      '<div id="fb"></div>' +
+      '<div class="q-actions" id="acts"></div>' +
+      '</div>';
+    stage.querySelectorAll(".choice").forEach(btn=>{
+      btn.addEventListener("click", ()=>answer(parseInt(btn.dataset.i,10)));
+    });
+  }
+
+  function answer(i){
+    const q = queue[idx];
+    const ok = i === q.ans;
+    if(ok) score++;
+    IPSS.recordAnswer(q.cat, ok);
+    stage.querySelectorAll(".choice").forEach((b,bi)=>{
+      b.disabled = true;
+      if(bi === q.ans) b.classList.add("correct");
+      else if(bi === i) b.classList.add("wrong");
+    });
+    document.getElementById("fb").innerHTML =
+      '<div class="feedback ' + (ok?'ok':'ng') + '"><b>' + (ok?'正解':'不正解 — 正解は「' + ["ア","イ","ウ","エ"][q.ans] + '」') + '</b><br>' + IPSS.esc(q.exp) + (q.src ? ' <span class="q-src">〔出典: ITパスポート試験 ' + IPSS.esc(q.src) + '(IPA)〕</span>' : '') +
+      '<div class="term-link" style="margin-top:8px"><a href="lessons/lesson' + String(q.lesson).padStart(2,"0") + '.html">→ 第' + String(q.lesson).padStart(2,"0") + '回の講義で復習</a></div></div>';
+    document.getElementById("acts").innerHTML =
+      '<button class="btn" id="nextBtn">' + (idx+1 < queue.length ? '次の問題へ' : '結果を見る') + '</button>';
+    document.getElementById("nextBtn").addEventListener("click", ()=>{ idx++; render(); });
+    document.getElementById("nextBtn").focus();
+  }
+
+  function finish(){
+    const rate = Math.round(score / queue.length * 100);
+    stage.innerHTML =
+      '<div class="q-card" style="text-align:center">' +
+      '<p class="eyebrow">RESULT</p>' +
+      '<p style="font-family:var(--serif);font-size:26px;font-weight:700;margin:8px 0">' + score + ' / ' + queue.length + ' 問正解(' + rate + '%)</p>' +
+      '<p class="dim">結果は分野別統計として<a href="dashboard.html">学習の記録</a>に反映されました。</p>' +
+      '<div class="q-actions" style="justify-content:center;margin-top:18px">' +
+      '<button class="btn ghost" id="againBtn">条件を変えてもう一度</button>' +
+      '<a class="btn" href="dashboard.html">記録を見る</a></div></div>';
+    document.getElementById("againBtn").addEventListener("click", ()=>{
+      stage.hidden = true; setup.hidden = false;
+    });
+  }
+})();
+</script>
+</body>
+</html>

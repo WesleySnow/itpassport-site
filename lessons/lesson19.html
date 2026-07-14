@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第19回 コンピュータ構成要素 | ITパスポート学習マップ</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="page-lesson" data-lesson="19">
+<header class="site-head">
+ <a class="brand" href="../index.html">IP<span>PASS</span> 学習マップ</a>
+ <nav><a href="../quiz.html">演習</a><a href="../exam.html">模擬テスト</a><a href="../glossary.html">用語辞典</a><a href="../dashboard.html">記録</a></nav>
+</header>
+<main class="wrap">
+ <p class="eyebrow cat-T">テクノロジ系 ・ 第19回</p>
+ <h1 class="lesson-title">コンピュータ構成要素</h1>
+ <p class="win"><strong>この回の勝利:</strong> CPU・メモリ階層・入出力インタフェースの役割を説明できる</p>
+
+<section class="lsec"><h2>CPUと記憶階層</h2>
+<p>CPUの性能=クロック周波数(GHz、1秒あたりの動作回数)×コア数など。<strong>GPU</strong>は描画処理専用のプロセッサで、3次元画像の高速化やAIの学習にも使われます(令和7年度 問67)。</p>
+<p>記憶は「速いが小さい↔遅いが大きい」の階層: <strong>レジスタ→キャッシュメモリ→主記憶→補助記憶</strong>。キャッシュはCPUと主記憶の速度差を埋める緩衝材です。</p>
+</section>
+<section class="lsec"><h2>メモリの種類と入出力</h2>
+<table><tr><th>種類</th><th>特徴</th></tr>
+<tr><td>RAM(DRAM/SRAM)</td><td>読み書き可・電源を切ると消える(揮発性)。DRAM=主記憶、SRAM=キャッシュ</td></tr>
+<tr><td>ROM</td><td>読み出し専用・不揮発性</td></tr>
+<tr><td>フラッシュメモリ</td><td>書き換え可・不揮発性。SSD、USBメモリ、SDカード</td></tr></table>
+<p><strong>半導体メモリ=RAM・SSD・USBメモリ</strong>。CD/DVD/Blu-rayは光ディスクで半導体ではありません(問75)。入出力では、OCR=紙の文字をテキストデータ化(問81)、入出力インタフェース(USB、HDMI、Bluetooth、NFC)、IoTデバイスのセンサー(検知)とアクチュエーター(動作)を押さえます。</p>
+<div class="expoint">「揮発性か不揮発性か」「半導体か光か磁気か」の2軸で記憶媒体を分類できれば、この領域の問題はほぼ解けます。</div>
+</section>
+
+ <div class="lesson-nav">
+  <a class="btn ghost" href="lesson18.html">← 第18回</a>
+  <a class="btn ghost" href="../quiz.html?cat=T">この分野の演習へ</a>
+  <button class="btn done-btn" id="doneBtn">この回を完了にする</button>
+  <a class="btn ghost" href="lesson20.html">第20回 →</a>
+ </div>
+</main>
+<script src="../assets/app.js"></script>
+<script>IPSS.initLessonPage(19);</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第20回 システム構成要素 | ITパスポート学習マップ</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="page-lesson" data-lesson="20">
+<header class="site-head">
+ <a class="brand" href="../index.html">IP<span>PASS</span> 学習マップ</a>
+ <nav><a href="../quiz.html">演習</a><a href="../exam.html">模擬テスト</a><a href="../glossary.html">用語辞典</a><a href="../dashboard.html">記録</a></nav>
+</header>
+<main class="wrap">
+ <p class="eyebrow cat-T">テクノロジ系 ・ 第20回</p>
+ <h1 class="lesson-title">システム構成要素</h1>
+ <p class="win"><strong>この回の勝利:</strong> 直列・並列システムの稼働率を計算できる</p>
+
+<section class="lsec"><h2>稼働率 — 直列は掛け算、並列は「全滅」から</h2>
+<p><strong>直列</strong>(全部動いて初めて稼働): 0.9×0.9=0.81。<strong>並列</strong>(1台でも動けば稼働): 1−(故障率の積)=1−0.1×0.1=0.99。</p>
+<p>応用型: 「稼働率0.9の装置で並列システムを組み、全体を0.999にしたい→最低何台?」——全滅確率0.1ⁿ≦0.001となる最小のn=3台(令和7年度 問94)。<strong>並列は必ず「全部止まる確率」から</strong>考えます。MTBF(平均故障間隔)とMTTR(平均修理時間)から稼働率=MTBF÷(MTBF+MTTR)。</p>
+</section>
+<section class="lsec"><h2>信頼性設計とシステム構成</h2>
+<dl>
+<dt>フェールセーフ / フールプルーフ / フェールソフト</dt><dd>故障したら<strong>安全側</strong>に倒す(赤信号で停止)/<strong>誤操作</strong>をさせない設計(電子レンジは扉を閉めないと動かない)/故障しても機能を縮小して<strong>継続</strong>。</dd>
+<dt>デュアルシステム / デュプレックスシステム</dt><dd>2系統で同じ処理をして照合/本番系+待機系(ホットスタンバイ/コールドスタンバイ)。</dd>
+<dt>仮想化 / クライアントサーバ</dt><dd>1台の物理マシン上に複数の仮想マシン。VDI(仮想デスクトップ)。クラサバ/ピアツーピアの構成も基本語。</dd>
+<dt>性能指標</dt><dd>レスポンスタイム=応答までの時間、スループット=単位時間の処理量、ベンチマーク=性能比較テスト。</dd>
+</dl>
+<div class="expoint">稼働率計算は毎年ほぼ確実に出る「取れる計算問題」。直列・並列・混合の3パターンを演習で反復してください。</div>
+</section>
+
+ <div class="lesson-nav">
+  <a class="btn ghost" href="lesson19.html">← 第19回</a>
+  <a class="btn ghost" href="../quiz.html?cat=T">この分野の演習へ</a>
+  <button class="btn done-btn" id="doneBtn">この回を完了にする</button>
+  <a class="btn ghost" href="lesson21.html">第21回 →</a>
+ </div>
+</main>
+<script src="../assets/app.js"></script>
+<script>IPSS.initLessonPage(20);</script>
+</body>
+</html>

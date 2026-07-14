@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第26回 セキュリティ① 脅威と攻撃手法 | ITパスポート学習マップ</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="page-lesson" data-lesson="26">
+<header class="site-head">
+ <a class="brand" href="../index.html">IP<span>PASS</span> 学習マップ</a>
+ <nav><a href="../quiz.html">演習</a><a href="../exam.html">模擬テスト</a><a href="../glossary.html">用語辞典</a><a href="../dashboard.html">記録</a></nav>
+</header>
+<main class="wrap">
+ <p class="eyebrow cat-T">テクノロジ系 ・ 第26回</p>
+ <h1 class="lesson-title">セキュリティ① 脅威と攻撃手法</h1>
+ <p class="win"><strong>この回の勝利:</strong> 主要な攻撃を対策と結びつけられる</p>
+
+<section class="lsec"><h2>脅威・脆弱性・リスクの三角関係</h2>
+<p><strong>脅威=損害を与える原因</strong>(令和7年度 問93)、<strong>脆弱性=付け込まれる弱点</strong>、<strong>リスク=脅威が脆弱性を突いて損害が生じる可能性</strong>。この定義の入れ替えが選択肢の定番です。</p>
+</section>
+<section class="lsec"><h2>マルウェアと攻撃手法</h2>
+<dl>
+<dt>マルウェアの種類</dt><dd><strong>ランサムウェア</strong>=データを暗号化し身代金を要求——対策は<strong>ネットワークから切り離したバックアップ</strong>(問92)。ほかにウイルス、ワーム(自己増殖)、トロイの木馬(正体を偽装)、スパイウェア、キーロガー、ボット。</dd>
+<dt>攻撃の名前と手口</dt><dd><strong>ゼロデイ攻撃</strong>=修正プログラム提供前の脆弱性を突く/<strong>DDoS</strong>=複数のコンピュータから大量パケットで停止させる/<strong>ブルートフォース</strong>=パスワードの総当たり(問73)。パスワードリスト攻撃=他サイトの流出パスワードを流用、フィッシング=偽サイトへ誘導、標的型攻撃=特定組織を狙う、SQLインジェクション=入力欄に不正な命令、ソーシャルエンジニアリング=人の心理を突く(のぞき見、なりすまし電話)。</dd>
+<dt>バッファオーバーフロー</dt><dd>ソフトウェアの脆弱性を突く攻撃——最有効の対策は<strong>セキュリティパッチの適用</strong>(問70)。</dd>
+</dl>
+<div class="expoint">攻撃名は「手口の一句」とセットで: 総当たり=ブルートフォース、修正前=ゼロデイ、大量送信=DoS/DDoS、暗号化して脅す=ランサムウェア。R07はこの対応付けだけで4問出ています。</div>
+</section>
+
+ <div class="lesson-nav">
+  <a class="btn ghost" href="lesson25.html">← 第25回</a>
+  <a class="btn ghost" href="../quiz.html?cat=T">この分野の演習へ</a>
+  <button class="btn done-btn" id="doneBtn">この回を完了にする</button>
+  <a class="btn ghost" href="lesson27.html">第27回 →</a>
+ </div>
+</main>
+<script src="../assets/app.js"></script>
+<script>IPSS.initLessonPage(26);</script>
+</body>
+</html>

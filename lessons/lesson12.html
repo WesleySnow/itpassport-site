@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第12回 プロジェクトマネジメント | ITパスポート学習マップ</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="page-lesson" data-lesson="12">
+<header class="site-head">
+ <a class="brand" href="../index.html">IP<span>PASS</span> 学習マップ</a>
+ <nav><a href="../quiz.html">演習</a><a href="../exam.html">模擬テスト</a><a href="../glossary.html">用語辞典</a><a href="../dashboard.html">記録</a></nav>
+</header>
+<main class="wrap">
+ <p class="eyebrow cat-M">マネジメント系 ・ 第12回</p>
+ <h1 class="lesson-title">プロジェクトマネジメント</h1>
+ <p class="win"><strong>この回の勝利:</strong> WBSを説明でき、アローダイアグラムのクリティカルパスを計算できる</p>
+
+<section class="lsec"><h2>プロジェクトの立ち上げと計画</h2>
+<dl>
+<dt>プロジェクトの定義</dt><dd>独自の成果物を、有期性をもって生み出す活動。QCD(品質・コスト・納期)のバランスを管理する。</dd>
+<dt>スコープ</dt><dd>プロジェクトが生み出す<strong>成果物と作業の範囲</strong>。使用する市販ツールや顧客側の文書は含まない(令和7年度 問48)。</dd>
+<dt>WBS</dt><dd>成果物と作業を階層的に分解した構成図。見積り・分担・進捗管理の土台。</dd>
+<dt>ステークホルダ / 人的資源計画</dt><dd>利害関係者。要員のスキル不足にはトレーニングを計画する(問55)。</dd>
+</dl>
+</section>
+<section class="lsec"><h2>スケジュールと進捗の技法</h2>
+<p>スケジュール作成技法=<strong>クリティカルパス法・プレシデンスダイアグラム法</strong>(問41)。ガントチャートは進捗の見える化。</p>
+<p><strong>アローダイアグラムの解き方</strong>: 並行作業は「長い方」が全体を決める。例: A(3日)→並行でB(4日)とC(2日)→D(2日)なら 3+max(4,2)+2=9日。最長経路がクリティカルパスで、その作業の遅れは即、全体の遅れになります。</p>
+<p><strong>EVM的な進捗評価</strong>: 20日時点で計画上50本完成のはずが実績40本→スケジュール80%。40本の計画コスト800万円に対し実績1,000万円→コスト125%(予算超過)(問45)。</p>
+<div class="expoint">変更管理: 変更要求はPMの承認を経て変更管理委員会で審議(問40)。リスク対応(回避・低減・移転・保有)はセキュリティ分野(第28回)と共通の枠組みです。</div>
+</section>
+
+ <div class="lesson-nav">
+  <a class="btn ghost" href="lesson11.html">← 第11回</a>
+  <a class="btn ghost" href="../quiz.html?cat=M">この分野の演習へ</a>
+  <button class="btn done-btn" id="doneBtn">この回を完了にする</button>
+  <a class="btn ghost" href="lesson13.html">第13回 →</a>
+ </div>
+</main>
+<script src="../assets/app.js"></script>
+<script>IPSS.initLessonPage(12);</script>
+</body>
+</html>

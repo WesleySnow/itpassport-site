@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第23回 データベース | ITパスポート学習マップ</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="page-lesson" data-lesson="23">
+<header class="site-head">
+ <a class="brand" href="../index.html">IP<span>PASS</span> 学習マップ</a>
+ <nav><a href="../quiz.html">演習</a><a href="../exam.html">模擬テスト</a><a href="../glossary.html">用語辞典</a><a href="../dashboard.html">記録</a></nav>
+</header>
+<main class="wrap">
+ <p class="eyebrow cat-T">テクノロジ系 ・ 第23回</p>
+ <h1 class="lesson-title">データベース</h1>
+ <p class="win"><strong>この回の勝利:</strong> 正規化の目的とSQL基礎・トランザクション(ACID)を説明できる</p>
+
+<section class="lsec"><h2>関係データベースの設計</h2>
+<p>データは表(テーブル)の行と列で管理。<strong>主キー</strong>=行を一意に識別(重複・空値不可)、<strong>外部キー</strong>=他の表の主キーを参照して表をつなぐ。設計時のデータ分析では<strong>必要なデータ項目を洗い出し、項目間の関連を整理</strong>します(令和7年度 問95。E-R図につながる作業)。</p>
+<p><strong>正規化</strong>の目的=データの重複を排除し、更新時の不整合を防ぐこと。検索を速くする技術は<strong>インデックス</strong>(問65)で、正規化とは別物です。</p>
+</section>
+<section class="lsec"><h2>トランザクションとDBMSの機能</h2>
+<dl>
+<dt>トランザクション</dt><dd>一連の処理が<strong>全て成功したら確定(コミット)、途中で失敗したら処理前に戻す(ロールバック)</strong>(問61)。銀行振込の「出金と入金は必ずセット」が典型例。ACID特性(原子性・一貫性・独立性・耐久性)。</dd>
+<dt>排他制御</dt><dd>同時更新の衝突をロックで防ぐ。互いに待ち合うとデッドロック。</dd>
+<dt>レプリケーション / バックアップ</dt><dd>複製して<strong>同期</strong>させる(問82)/ある時点のコピー(同期しない)。この違いが問われます。</dd>
+<dt>SQL</dt><dd>SELECT=抽出、INSERT=追加、UPDATE=更新、DELETE=削除。WHEREで条件指定。</dd>
+</dl>
+<div class="expoint">「正規化=重複排除」「インデックス=検索高速化」「レプリケーション=複製+同期」——目的語の対応を入れ替える選択肢が定番の罠です。</div>
+</section>
+
+ <div class="lesson-nav">
+  <a class="btn ghost" href="lesson22.html">← 第22回</a>
+  <a class="btn ghost" href="../quiz.html?cat=T">この分野の演習へ</a>
+  <button class="btn done-btn" id="doneBtn">この回を完了にする</button>
+  <a class="btn ghost" href="lesson24.html">第24回 →</a>
+ </div>
+</main>
+<script src="../assets/app.js"></script>
+<script>IPSS.initLessonPage(23);</script>
+</body>
+</html>

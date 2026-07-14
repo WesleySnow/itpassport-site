@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第16回 基礎理論② 確率・統計とデータ分析 | ITパスポート学習マップ</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="page-lesson" data-lesson="16">
+<header class="site-head">
+ <a class="brand" href="../index.html">IP<span>PASS</span> 学習マップ</a>
+ <nav><a href="../quiz.html">演習</a><a href="../exam.html">模擬テスト</a><a href="../glossary.html">用語辞典</a><a href="../dashboard.html">記録</a></nav>
+</header>
+<main class="wrap">
+ <p class="eyebrow cat-T">テクノロジ系 ・ 第16回</p>
+ <h1 class="lesson-title">基礎理論② 確率・統計とデータ分析</h1>
+ <p class="win"><strong>この回の勝利:</strong> 期待値・相関・代表値を計算し、グラフの誤用を見抜ける</p>
+
+<section class="lsec"><h2>代表値とばらつき</h2>
+<dl>
+<dt>平均値・中央値・最頻値</dt><dd>平均は外れ値に弱い。中央値=並べて真ん中、最頻値=最も多い値。「年収の分布」のように偏ったデータでは中央値が実感に近い——どの代表値が適切かを問う形で出ます。</dd>
+<dt>分散・標準偏差</dt><dd>ばらつきの大きさ。標準偏差が大きい=データが散らばっている。偏差値は平均50・標準偏差10に変換した値。</dd>
+<dt>相関</dt><dd>散布図で右上がり=正の相関。<strong>相関があっても因果があるとは限らない</strong>(擬似相関)。回帰分析=関係を式で表し予測に使う。</dd>
+</dl>
+</section>
+<section class="lsec"><h2>尺度の4分類と確率</h2>
+<table><tr><th>尺度</th><th>意味</th><th>例</th></tr>
+<tr><td>名義尺度</td><td>区別だけ</td><td>血液型、性別</td></tr>
+<tr><td>順序尺度</td><td>順序に意味</td><td>学年、満足度の5段階</td></tr>
+<tr><td>間隔尺度</td><td>間隔に意味、0は相対的</td><td><strong>時刻</strong>、摂氏温度</td></tr>
+<tr><td>比例尺度</td><td>0が絶対的、比に意味</td><td>睡眠時間、身長、金額</td></tr></table>
+<p>令和7年度 問63はまさにこの表の問題(時刻=間隔尺度)。「0に意味があるか」「2倍と言えるか」で判定します。確率は「場合の数÷全体」、期待値は「値×確率の合計」。サイコロ・くじ引きレベルの計算が中心です。</p>
+<div class="expoint">グラフの誤用(3Dグラフの誇張、軸の省略)を見抜く問題、母集団と標本(全数調査と標本調査)もこの回の範囲です。</div>
+</section>
+
+ <div class="lesson-nav">
+  <a class="btn ghost" href="lesson15.html">← 第15回</a>
+  <a class="btn ghost" href="../quiz.html?cat=T">この分野の演習へ</a>
+  <button class="btn done-btn" id="doneBtn">この回を完了にする</button>
+  <a class="btn ghost" href="lesson17.html">第17回 →</a>
+ </div>
+</main>
+<script src="../assets/app.js"></script>
+<script>IPSS.initLessonPage(16);</script>
+</body>
+</html>
